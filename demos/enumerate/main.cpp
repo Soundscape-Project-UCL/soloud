@@ -46,6 +46,7 @@ const char * getBackendEnumString(int aBackend)
 	case SoLoud::Soloud::OPENAL: return "OPENAL";
 	case SoLoud::Soloud::COREAUDIO: return "COREAUDIO";
 	case SoLoud::Soloud::OPENSLES: return "OPENSLES";
+    case SoLoud::Soloud::AAUDIO: return "AAUDIO";
 	case SoLoud::Soloud::VITA_HOMEBREW: return "VITA_HOMEBREW";
 	case SoLoud::Soloud::NULLDRIVER: return "NULLDRIVER";
 	case SoLoud::Soloud::NOSOUND: return "NOSOUND";

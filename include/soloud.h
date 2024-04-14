@@ -183,6 +183,7 @@ namespace SoLoud
 			JACK,
 			OSS,
 			OPENAL,
+            AAUDIO,
 			COREAUDIO,
 			OPENSLES,
 			VITA_HOMEBREW,

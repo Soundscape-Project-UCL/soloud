@@ -504,6 +504,20 @@ namespace SoLoud
 		}
 #endif
 
+#if defined(WITH_AAUDIO)
+        if (!inited && (aBackend == Soloud::AAUDIO || aBackend == Soloud::AUTO)) {
+            if (buffersize == Soloud::AUTO) buffersize = 4096;
+
+            int ret = aaudio_init(this, aFlags, samplerate, buffersize, aChannels);
+            if (ret == SoLoud::SO_NO_ERROR) {
+                inited = 1;
+                mBackendID = Soloud::AAUDIO;
+            }
+
+            if (ret != SoLoud::SO_NO_ERROR && aBackend != Soloud::AUTO)
+                return ret;
+        }
+#endif
 #if defined(WITH_VITA_HOMEBREW)
 		if (!inited &&
 			(aBackend == Soloud::VITA_HOMEBREW || 

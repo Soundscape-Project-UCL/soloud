@@ -31,3 +31,6 @@ print_option_status (SOLOUD_BACKEND_WINMM "WINMM backend")
 
 option (SOLOUD_BACKEND_WASAPI "Set to ON for building WASAPI backend" OFF)
 print_option_status (SOLOUD_BACKEND_WASAPI "WASAPI backend")
+
+option(SOLOUD_BACKEND_AAUDIO "Set to ON for building AAudio backend" OFF)
+print_option_status(SOLOUD_BACKEND_AAUDIO "AAudio backend")
