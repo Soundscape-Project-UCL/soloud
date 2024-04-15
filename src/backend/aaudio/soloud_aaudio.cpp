@@ -21,13 +21,7 @@ freely, subject to the following restrictions:
    3. This notice may not be removed or altered from any source
    distribution.
 */
-#include <stdlib.h>
-#include <math.h>
-#include <memory.h>
-
 #include "soloud.h"
-#include "soloud_thread.h"
-
 
 #if defined( __ANDROID__ )
 
@@ -57,8 +51,6 @@ namespace SoLoud {
     }
 }
 #else
-
-#define NUM_BUFFERS 2
 
 namespace SoLoud {
     struct AAudioData {
