@@ -63,20 +63,12 @@ namespace SoLoud {
 namespace SoLoud {
     struct AAudioData {
         AAudioStream *stream;
-        unsigned int bufferSize;
-        unsigned int channels;
-        short *outputBuffers[NUM_BUFFERS];
 
-        AAudioData() : stream(nullptr), bufferSize(0), channels(0) {
-            memset(outputBuffers, 0, sizeof(outputBuffers));
-        }
+        AAudioData() : stream(nullptr) {}
 
         ~AAudioData() {
             if (stream) {
                 AAudioStream_close(stream);
-            }
-            for (int i = 0; i < 2; ++i) {
-                delete[] outputBuffers[i];
             }
         }
     };
@@ -100,8 +92,6 @@ namespace SoLoud {
     result aaudio_init(SoLoud::Soloud *aSoloud, unsigned int aFlags, unsigned int aSamplerate,
                        unsigned int aBuffer, unsigned int aChannels) {
         AAudioData *data = new AAudioData();
-        data->bufferSize = aBuffer;
-        data->channels = aChannels;
 
         LOG_INFO("Initialized AAudio Data");
 
@@ -135,7 +125,7 @@ namespace SoLoud {
 
         LOG_INFO("Set backend data and cleanup function");
 
-        aSoloud->postinit_internal(aSamplerate, data->bufferSize, aFlags, aChannels);
+        aSoloud->postinit_internal(aSamplerate, aBuffer, aFlags, aChannels);
 
         LOG_INFO("Postinit internal");
 
