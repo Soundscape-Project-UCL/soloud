@@ -83,6 +83,20 @@ namespace SoLoud {
 
     result aaudio_init(SoLoud::Soloud *aSoloud, unsigned int aFlags, unsigned int aSamplerate,
                        unsigned int aBuffer, unsigned int aChannels) {
+
+        aaudio_performance_mode_t performanceMode = AAUDIO_PERFORMANCE_MODE_NONE;
+        bool lowLatency = aFlags & SoLoud::Soloud::AAUDIO_PERFORMANCE_LOW_LATENCY;
+        bool powerSaving = aFlags & SoLoud::Soloud::AAUDIO_PERFORMANCE_POWER_SAVING;
+
+        if (lowLatency && powerSaving) {
+            LOG_ERROR("Cannot set both low latency and power saving modes");
+            return INVALID_PARAMETER;
+        } else if (lowLatency) {
+            performanceMode = AAUDIO_PERFORMANCE_MODE_LOW_LATENCY;
+        } else if (powerSaving) {
+            performanceMode = AAUDIO_PERFORMANCE_MODE_POWER_SAVING;
+        }
+
         AAudioData *data = new AAudioData();
 
         LOG_INFO("Initialized AAudio Data");
@@ -92,7 +106,7 @@ namespace SoLoud {
         AAudioStreamBuilder_setFormat(builder, AAUDIO_FORMAT_PCM_I16);
         AAudioStreamBuilder_setChannelCount(builder, aChannels);
         AAudioStreamBuilder_setSampleRate(builder, aSamplerate);
-        AAudioStreamBuilder_setPerformanceMode(builder, AAUDIO_PERFORMANCE_MODE_LOW_LATENCY);
+        AAudioStreamBuilder_setPerformanceMode(builder, performanceMode);
         AAudioStreamBuilder_setDirection(builder, AAUDIO_DIRECTION_OUTPUT);
         AAudioStreamBuilder_setDataCallback(builder, dataCallback, aSoloud);
 
